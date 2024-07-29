@@ -26,8 +26,14 @@ public class BrickController {
     }
 
     @PostMapping
-    public Bricks createBrick(@RequestBody Bricks brick) {
-        return brickService.createBrick(brick);
+    public ResponseEntity<Bricks> createBrick(@RequestBody Bricks brick) {
+        try {
+            Bricks createdBrick = brickService.createBrick(brick);
+            return ResponseEntity.ok(createdBrick);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
     @PutMapping("/{id}")
